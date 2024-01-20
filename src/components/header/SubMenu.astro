@@ -1,0 +1,62 @@
+---
+import fetchNotionData from "../../utils/fetchNotionData";
+import createMenuItems from "../../utils/createMenuItems";
+import type MenuItem from "../../interfaces/menuItems";
+import getDefaultMenuItems from "../../utils/getDefaultMenuItems";
+import SecondSubMenu from "./SecondSubMenu.astro";
+
+const { blockIdSubMenu, menuName } = Astro.props;
+
+const defaultMenuItems = getDefaultMenuItems(menuName);
+
+const menuList = await fetchNotionData(blockIdSubMenu, 'blocks', true);
+const menuItems : MenuItem[] = createMenuItems(menuList, defaultMenuItems);
+
+---
+<ul class="hidden top-9 absolute group-hover:flex hover:flex bg-white shadow-md rounded-md p-4 flex-col" id="submenu">
+   {
+      menuItems.map((item: MenuItem) => (
+         <li class="group/sub relative gap-1 list-none">
+            <a href={item.link} class="p-4 hover:bg-black hover:text-white rounded-md lg:w-[200px] flex flex-row">
+               <p class="text-xs tracking-widest grow">{item.denominazione}</p>
+               {item.hasChildren && (<i class="bi bi-caret-right-fill text-xs"></i>)}
+            </a>
+            {item.hasChildren && (
+               <SecondSubMenu blockIdSubMenu={item.blockIdSubMenu} menuName={item.denominazione} />
+             )}
+         </li>
+      ))
+   }
+</ul>
+
+<!-- <script>
+import { animate } from "motion";
+
+const submenus = document.getElementsByClassName("submenu");
+
+// Definisci l'animazione di fade-in
+function fadeIn(submenu) {
+    animate(
+        submenu,
+        { opacity: 1, y: 0 },
+        { duration: 0.5, easing: "ease-out" }
+    );
+}
+
+// Definisci l'animazione di fade-out
+function fadeOut(submenu) {
+    animate(
+        submenu,
+        { opacity: 0, y: 10 },
+        { duration: 0.5, easing: "ease-in" }
+    );
+}
+
+// Applica le animazioni a ciascun submenu
+for (let i = 0; i < submenus.length; i++) {
+    const submenu = submenus[i];
+    submenu.parentElement!.addEventListener("mouseenter", () => fadeIn(submenu));
+    submenu.parentElement!.addEventListener("mouseleave", () => fadeOut(submenu));
+}
+
+</script> -->

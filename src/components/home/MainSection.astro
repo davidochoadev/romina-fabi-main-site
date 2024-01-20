@@ -1,0 +1,33 @@
+---
+import type {Block} from '../../interfaces/tableRow';
+import fetchNotionData from '../../utils/fetchNotionData';
+
+const defaultTitoli : String[] = ["Consulente Olistica", "Operatrice Bioenergetica", "Ricercatrice Spirituale"];
+const firstSection = import.meta.env.MAIN_TITLE_BLOCK
+const titoliDiStudio = import.meta.env.TABLE_TITLES_BLOCK
+const hiddenTitle = import.meta.env.HIDDEN_TITLE_BLOCK
+
+const response = await fetchNotionData(firstSection,'blocks', false);
+const responseTitoli = await fetchNotionData(titoliDiStudio,'blocks', true);
+const responseHidden = await fetchNotionData(hiddenTitle,'blocks', false);
+
+const denominazione = response.heading_1.rich_text[0].text.content || "Romina Fabi";
+const titoli : String[] = responseTitoli.results.map((row : Block) => {
+	return row.table_row.cells![1][0].plain_text
+}) || defaultTitoli;
+
+const hidden = responseHidden.heading_3.rich_text[0].text.content || "Studio Olistico di Romina Fabi"
+---
+<section>
+   <h1 class="">{hidden}</h1>
+   <h2 class="text-3xl">{denominazione}</h2>
+   <astro-titles id="typewriter" data-titoli={titoli}></astro-titles>
+   <h2 id="hiddenTitles"></h2>
+   {
+      titoli.map((title: String) => (
+        <li>
+          {title}
+        </li>
+      ))
+    }
+</section>

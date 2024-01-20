@@ -1,0 +1,32 @@
+---
+import fetchNotionData from "../../utils/fetchNotionData";
+import type MenuItem from "../../interfaces/menuItems";
+import SubMenu from "./SubMenu.astro";
+import createMenuItems from "../../utils/createMenuItems";
+import getDefaultMenuItems from "../../utils/getDefaultMenuItems";
+
+const defaultMenuItems : MenuItem[] = getDefaultMenuItems('MAIN');
+
+const menuListEnv = import.meta.env.MENU_LIST_BLOCK;
+const menuList = await fetchNotionData(menuListEnv, 'blocks', true);
+const menuItems : MenuItem[] = createMenuItems(menuList, defaultMenuItems);
+---
+
+<div class="w-full flex flex-row justify-center items-center gap-4">
+  <nav class="hidden md:flex md:flex-row gap-4 justify-center items-center">
+  {
+    menuItems.map((items : MenuItem) => (
+      <li class="group relative gap-1 list-none">
+        <a href={items.link} class="flex flex-row items-center justify-center p-2">
+          <p class="text-xs tracking-widest h-5 flex items-center justify-center">{items.denominazione}</p>
+          {items.hasChildren && (<i class="bi bi-caret-right-fill text-xs group-hover:rotate-90 transition-all duration-300 "></i>)}
+        </a>
+        {items.hasChildren && (
+          <SubMenu blockIdSubMenu={items.blockIdSubMenu} menuName={items.denominazione} />
+        )}
+      </li>
+    ))
+  }
+ </nav>
+
+</div>

@@ -1,0 +1,25 @@
+---
+import fetchNotionData from "../../utils/fetchNotionData";
+import createMenuItems from "../../utils/createMenuItems";
+import type MenuItem from "../../interfaces/menuItems";
+import getDefaultMenuItems from "../../utils/getDefaultMenuItems";
+
+const { blockIdSubMenu, menuName } = Astro.props;
+
+const defaultMenuItems = getDefaultMenuItems(menuName);
+
+const menuList = await fetchNotionData(blockIdSubMenu, 'blocks', true);
+const menuItems : MenuItem[] = createMenuItems(menuList, defaultMenuItems);
+
+---
+<ul class="hidden left-[200px] -top-5 absolute group-hover/sub:flex hover:flex bg-white shadow-md rounded-md p-4 flex-col submenu">
+   {
+      menuItems.map((item: MenuItem) => (
+         <a href={item.link} class="p-4 hover:bg-black hover:text-white rounded-md lg:w-[200px] flex flex-row">
+            <p class="text-xs tracking-widest grow">{item.denominazione}</p>
+            {item.hasChildren && (<i class="bi bi-caret-right-fill text-xs"></i>)}
+         </a>
+      ))
+   }
+   
+</ul>
