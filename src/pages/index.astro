@@ -5,7 +5,11 @@ import MainSection from "../components/home/MainSection.astro";
 ---
 
 <Layout title="Welcome to Astro.">
-	<main>
-		<MainSection />
-	</main>
+	<MainSection slot="first"/>
+	<section class="h-screen w-screen flex items-center justify-center">
+		second box
+	</section>
+	<section class="h-screen w-screen flex items-center justify-center">
+		third box
+	</section>
 </Layout>
