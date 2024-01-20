@@ -23,6 +23,7 @@ const hidden = responseHidden.heading_3.rich_text[0].text.content || "Studio Oli
    <h2 class="text-3xl">{denominazione}</h2>
    <astro-titles id="typewriter" data-titoli={titoli}></astro-titles>
    <h2 id="hiddenTitles"></h2>
+   <ul>
    {
       titoli.map((title: String) => (
         <li>
@@ -30,6 +31,7 @@ const hidden = responseHidden.heading_3.rich_text[0].text.content || "Studio Oli
         </li>
       ))
     }
+   </ul>
 </section>
 <script>
 	import Typewriter from "typewriter-effect/dist/core"
