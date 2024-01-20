@@ -1,6 +1,7 @@
 ---
 import type {Block} from '../../interfaces/tableRow';
 import fetchNotionData from '../../utils/fetchNotionData';
+import { Image } from 'astro:assets';
 
 const defaultTitoli : String[] = ["Consulente Olistica", "Operatrice Bioenergetica", "Ricercatrice Spirituale"];
 const firstSection = import.meta.env.MAIN_TITLE_BLOCK
@@ -16,41 +17,26 @@ const titoli : String[] = responseTitoli.results.map((row : Block) => {
 	return row.table_row.cells![1][0].plain_text
 }) || defaultTitoli;
 
+const titoliConcatenati = titoli.join(", ");
+
 const hidden = responseHidden.heading_3.rich_text[0].text.content || "Studio Olistico di Romina Fabi"
 ---
-<section>
-   <h1 class="">{hidden}</h1>
-   <h2 class="text-3xl">{denominazione}</h2>
-   <astro-titles id="typewriter" data-titoli={titoli}></astro-titles>
-   <h2 id="hiddenTitles"></h2>
-   <ul>
-   {
-      titoli.map((title: String) => (
-        <li>
-          {title}
-        </li>
-      ))
-    }
-   </ul>
+<section class="h-screen w-screen flex justify-center items-center">
+   <div class="flex flex-col justify-center items-center">
+      <h1 class="sr-only">{hidden}</h1>
+      <h2 class="text-8xl py-2">{denominazione}</h2>
+      <astro-titles id="typewriter" data-titoli={titoli} aria-hidden="true" class="text-xl uppercase tracking-widest py-4" />
+      <h3 class="sr-only">{titoliConcatenati}</h3>
+   </div>
 </section>
 <script>
 	import Typewriter from "typewriter-effect/dist/core"
-
 	class AstroTitles extends HTMLElement {
    	constructor() {
 			super();
 
-			const titoli = this.dataset.titoli || "Consulente Olistica,Operatrice Bioenergetica,Ricercatrice Spirituale";
+			const titoli = this.dataset.titoli || "Consulente Olistica, Operatrice Bioenergetica, Ricercatrice Spirituale";
 			let array = titoli.split(",");
-			console.log(array);
-
-			let hiddenTitles = document.getElementById("hiddenTitles");
-			if (hiddenTitles) {
-				hiddenTitles.textContent = titoli;
-			} else {
-				console.error("Elemento 'hiddenTitles' non trovato nel DOM");
-			}
-
 
 			new Typewriter('#typewriter', {
 				strings: array,
@@ -59,11 +45,20 @@ const hidden = responseHidden.heading_3.rich_text[0].text.content || "Studio Oli
 				cursor: "",
 				delay: 60,
 			});
-
     	}
   }
-
   customElements.define('astro-titles', AstroTitles);
-
-
 </script>
+<style>
+   .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+</style>
