@@ -13,13 +13,18 @@ const menuItems : MenuItem[] = createMenuItems(menuList, defaultMenuItems);
 ---
 
 <div class="w-full flex flex-row justify-center items-center gap-4">
-  <nav class="hidden md:flex md:flex-row gap-4 justify-center items-center">
+  <menu class="hidden md:flex md:flex-row gap-4 justify-center items-center">
   {
     menuItems.map((items : MenuItem) => (
       <li class="group relative gap-1 list-none">
         <a href={items.link} class="flex flex-row items-center justify-center p-2">
           <p class="text-xs tracking-widest h-5 flex items-center justify-center">{items.denominazione}</p>
-          {items.hasChildren && (<i class="bi bi-caret-right-fill text-xs group-hover:rotate-90 transition-all duration-300 "></i>)}
+          {items.hasChildren && (
+          <svg class="w-3 h-3 group-hover:rotate-90 transition-all duration-300 "
+          xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+          </svg>
+          )}
         </a>
         {items.hasChildren && (
           <SubMenu blockIdSubMenu={items.blockIdSubMenu} menuName={items.denominazione} />
@@ -27,6 +32,6 @@ const menuItems : MenuItem[] = createMenuItems(menuList, defaultMenuItems);
       </li>
     ))
   }
- </nav>
+ </menu>
 
 </div>

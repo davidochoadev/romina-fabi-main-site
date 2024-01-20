@@ -31,3 +31,37 @@ const hidden = responseHidden.heading_3.rich_text[0].text.content || "Studio Oli
       ))
     }
 </section>
+<script>
+	import Typewriter from "typewriter-effect/dist/core"
+
+	class AstroTitles extends HTMLElement {
+   	constructor() {
+			super();
+
+			const titoli = this.dataset.titoli || "Consulente Olistica,Operatrice Bioenergetica,Ricercatrice Spirituale";
+			let array = titoli.split(",");
+			console.log(array);
+
+			let hiddenTitles = document.getElementById("hiddenTitles");
+			if (hiddenTitles) {
+				hiddenTitles.textContent = titoli;
+			} else {
+				console.error("Elemento 'hiddenTitles' non trovato nel DOM");
+			}
+
+
+			new Typewriter('#typewriter', {
+				strings: array,
+				autoStart: true,
+				loop: true,
+				cursor: "",
+				delay: 60,
+			});
+
+    	}
+  }
+
+  customElements.define('astro-titles', AstroTitles);
+
+
+</script>
