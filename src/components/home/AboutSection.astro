@@ -1,0 +1,77 @@
+---
+import fetchNotionData from "../../utils/fetchNotionData"
+import type MenuItem from "../../interfaces/menuItems";
+import type {Block, BlockResponse} from "../../interfaces/tableRow";
+import { Image } from "astro:assets";
+import logo from "../../assets/logo.png";
+import { marked } from "marked";
+
+const aboutSectionEnv = import.meta.env.ABOUT_SECTION_BLOCK;
+const data = await fetchNotionData(aboutSectionEnv, "blocks", true);
+
+function createSectionItems(sectionList:BlockResponse /* defaultMenuItems:MenuItem[] */) {
+   const titoloDellaPagina = sectionList.results.map((list:Block) => list.table_row.cells![0][1].plain_text);
+   const sottotitoloDellaPagina = sectionList.results.map((list:Block) => list.table_row.cells![1][1].plain_text);
+   const titoloBiografia = sectionList.results.map((list:Block) => list.table_row.cells![2][1].plain_text);
+
+   const blockId = sectionList.results.map((list:Block) => {
+       return list.table_row.cells![3][0] && list.table_row.cells![3][0].plain_text
+           ? list.table_row.cells![3][0].plain_text
+           : null;
+   });
+
+   const menuItems = titoloDellaPagina.map((item, index) => ({
+       titoloDellaPagina: item,
+       sottotitoloDellaPagina: sottotitoloDellaPagina[index],
+       titoloBiografia: titoloBiografia[index],
+   }));
+
+   return menuItems.length > 0 && menuItems  /*: defaultMenuItems - change && to ? */
+}
+
+const chiavi = ['scelto_da_me', 'chiave2', 'chiave3', 'chiave4', 'chiave5', 'chiave6','chiave33'];
+
+const oggetto = {};
+
+const results = data.results.map((list: Block) => {
+  if (list && list.table_row && list.table_row.cells && list.table_row.cells[1] && list.table_row.cells[1][0]) {
+    return list.table_row.cells[1][0].plain_text;
+  }
+  return null; // o qualsiasi altro valore che preferisci per gli elementi non validi
+})
+
+const section = {
+   titoloDellaPagina: results[0] || '',
+   sottotitoloDellaPagina: results[1] || '',
+   titoloBiografia: results[2] || '',
+  descrizioneBiografia: marked.parse(results[3]) || '',
+  titoloLogo: results[4] || '',
+  descrizioneLogo: marked.parse(results[5]) || ''
+};
+
+console.log(section)
+---
+<section class="px-4 py-6 min-h-screen max-w-screen flex flex-col items-center justify-center bg-white lg:p-[100px]">
+   <div class="flex flex-col gap-2 items-center justify-end w-full py-6">
+      <h4 class="sottotitolo">{section.sottotitoloDellaPagina}</h4>
+      <h3 class="text-5xl playfair text-center">{section.titoloDellaPagina}</h3> 
+   </div>
+   <div class="grid lg:grid-cols-2 grid-cols-1 w-full h-min place-items-center gap-6">
+      <div class="flex flex-col items-center justify-center max-w-[600px]">
+         <Image src={logo} alt="logo" class="max-w-[300px] p-6"/>
+         <h5 class="playfair text-3xl">{section.titoloBiografia}</h5> 
+         <div class="px-8 text-center py-6 text-slate-500" set:html={section.descrizioneBiografia}></div>
+         <a href="/" class="button">
+            scopri di più
+         </a>
+      </div>
+      <div class="flex flex-col items-center justify-center max-w-[600px]">
+         <Image src={logo} alt="logo" class="max-w-[300px] p-6"/>
+         <h5 class="playfair text-3xl">{section.titoloLogo}</h5>
+         <div class="px-8 text-center py-6 text-slate-500" set:html={section.descrizioneLogo}></div>
+         <a href="/" class="button">
+            scopri di più
+         </a>
+      </div>
+   </div>
+</section>

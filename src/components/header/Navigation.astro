@@ -12,11 +12,11 @@ const menuList = await fetchNotionData(menuListEnv, 'blocks', true);
 const menuItems : MenuItem[] = createMenuItems(menuList, defaultMenuItems);
 ---
 
-<div class="w-full flex flex-row justify-center items-center gap-4">
+<div class="w-full h-full flex flex-row justify-center items-center gap-4 ">
   <menu class="hidden md:flex md:flex-row gap-4 justify-center items-center">
   {
     menuItems.map((items : MenuItem) => (
-      <li class="group relative gap-1 list-none">
+      <li class="group relative gap-1 list-none w-full">
         <a href={items.link} class="flex flex-row items-center justify-center p-2">
           <p class="text-xs tracking-widest h-5 flex items-center justify-center text-white">{items.denominazione}</p>
           {items.hasChildren && (

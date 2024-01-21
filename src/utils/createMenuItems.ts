@@ -21,3 +21,4 @@ export default function createMenuItems(menuList:BlockResponse, defaultMenuItems
 
    return menuItems.length > 0 ? menuItems : defaultMenuItems;
 }
+

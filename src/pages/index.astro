@@ -1,14 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import MainSection from "../components/home/MainSection.astro";
+import AboutSection from '../components/home/AboutSection.astro';
 
 ---
 
 <Layout title="Welcome to Astro.">
 	<MainSection slot="first"/>
-	<section class="h-screen w-screen flex items-center justify-center">
-		second box
-	</section>
+	<AboutSection />
 	<section class="h-screen w-screen flex items-center justify-center">
 		third box
 	</section>
