@@ -3,6 +3,7 @@ import type {Block} from '../../interfaces/tableRow';
 import fetchNotionData from '../../utils/fetchNotionData';
 import { Image } from 'astro:assets';
 import myImage from "../../assets/studio.webp"
+import Social from '../header/Social.astro';
 
 const defaultTitoli : String[] = ["Consulente Olistica", "Operatrice Bioenergetica", "Ricercatrice Spirituale"];
 const firstSection = import.meta.env.MAIN_TITLE_BLOCK
@@ -22,13 +23,34 @@ const titoliConcatenati = titoli.join(", ");
 
 const hidden = responseHidden.heading_3.rich_text[0].text.content || "Studio Olistico di Romina Fabi"
 ---
-<section class="h-[calc(100vh-100px)] w-screen flex justify-center items-center bg-slate-500 relative">
-   <Image src={myImage} alt="Studio Olistico" class="absolute z-0 brightness-50 w-full h-[calc(100vh)] -top-[100px] bg-cover"/>
-   <div class="flex flex-col justify-center items-center z-10">
+<section class="absolute top-0 left-0 w-full h-[100vh] md:h-[100vh] flex flex-col items-center justify-center" id="home">
+   <div class=" bg-hero-pattern w-full h-full absolute top-0 left-0 bg-auto bg-bottom z-0 brightness-50" />
+   <Social />
+   <div class="flex flex-col justify-center items-center z-10 grow">
       <h1 class="sr-only">{hidden}</h1>
-      <h2 class="text-6xl py-2 playfair text-white">{denominazione}</h2>
-      <astro-titles id="typewriter" data-titoli={titoli} aria-hidden="true" class="text-lg uppercase tracking-widest py-4 text-white" />
+      <h2 class="text-5xl md:text-6xl py-2 playfair text-white">{denominazione}</h2>
+      <astro-titles id="typewriter" data-titoli={titoli} aria-hidden="true" class="text-md lg:text-lg uppercase tracking-widest py-4 text-white spacing" />
       <h3 class="sr-only">{titoliConcatenati}</h3>
+   </div>
+   <div class="flex flex-col w-full justify-center items-center pb-4 md:pb-0 z-10">
+      <a
+         href="https://rominafabi.it/servizi"
+         target="_self"
+         class="bg-opacity-80 backdrop-blur spacing text-xs my-4 py-4 px-8 bg-main rounded-lg text-white border border-gold hover:bg-white hover:text-main transition-all duration-300 text-center"
+      >
+         Scopri tutti i miei servizi
+      </a>
+      <a
+      id="chevron_down"
+      href="/#servizi"
+      target="_self"
+      data-te-smooth-scroll-init
+      class="bg-opacity-80 backdrop-blur spacing text-xs py-4 px-4 my-4 bg-main rounded-full group text-white hover:bg-opacity-50 border border-gold transition-all duration-300"
+   >
+   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-down group-hover:scale-105 transition duration-300" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+    </svg>
+   </a>
    </div>
 </section>
 <script>
@@ -62,5 +84,7 @@ const hidden = responseHidden.heading_3.rich_text[0].text.content || "Studio Oli
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
+
 
 </style>

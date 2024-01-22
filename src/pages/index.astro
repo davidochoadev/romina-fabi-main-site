@@ -2,13 +2,174 @@
 import Layout from '../layouts/Layout.astro';
 import MainSection from "../components/home/MainSection.astro";
 import AboutSection from '../components/home/AboutSection.astro';
+import Social from '../components/header/Social.astro';
+import { Image } from 'astro:assets';
+import logo from "../assets/logo.png";
 
 ---
 
 <Layout title="Welcome to Astro.">
-	<MainSection slot="first"/>
+	<MainSection />
+	<div class="h-[90vh] md:h-[90vh]">
+	</div>
 	<AboutSection />
-	<section class="h-screen w-screen flex items-center justify-center">
-		third box
+	<section class="px-4 min-h-[100vh] md:h-[100vh] relative border-t border-b border-gold " id="services_container">
+		<div id="servizi" class="h-[10vh]"></div>
+		<div class="bg-black-pattern absolute top-0 left-0 w-full bg-center h-full opacity-40 bg-cover"/>
+		<div class="flex flex-col gap-4 md:flex-row justify-center items-center h-mid pb-[75px] pt-4">
+			<a href="https://rominafabi.it/servizi/consulenze" class="w-full relative group" id="consulenze_container">
+				<div class="text-sm md:text-lg spacing absolute z-10 inset-0 flex items-center justify-center lg:group-hover:text-2xl transition-all duration-300 ">
+					<p class="bg-main backdrop-blur bg-opacity-70 py-4 px-8 rounded-lg border border-gold text-xs">Consulenze</p>
+				</div>
+				<Image src={logo} alt="Consulenze" class="max-h-[300px] lg:max-h-[450px] w-auto mx-auto rounded-xl brightness-90 group-hover:scale-105 transition-all duration-300  border border-gold" id="consulenze"/>
+			</a>
+			<a href="https://rominafabi.it/servizi/trattamenti" class="w-full relative group" id="trattamenti_container">
+				<div class="text-sm md:text-lg spacing absolute z-10 inset-0 flex items-center justify-center lg:group-hover:text-2xl transition-all duration-300">
+					<p class="bg-main backdrop-blur bg-opacity-70 py-4 px-8 rounded-lg border border-gold text-xs">Trattamenti</p>
+				</div>
+				<Image src={logo} alt="Consulenze" class="max-h-[300px] lg:max-h-[450px] w-auto mx-auto rounded-xl brightness-90 group-hover:scale-105 transition-all duration-300 border border-gold" id="trattamenti"/>
+			</a>
+			<a href="https://rominafabi.it/servizi/percorsi" class="w-full relative group" id="percorsi_container">
+				<div class="text-sm md:text-lg spacing absolute z-10 inset-0 flex items-center justify-center lg:group-hover:text-2xl transition-all duration-300">
+					<p class="bg-main backdrop-blur bg-opacity-70 py-4 px-8 rounded-lg border border-gold text-xs">Percorsi</p>
+				</div>
+				<Image src={logo} alt="Consulenze" class="max-h-[300px] lg:max-h-[450px] w-auto mx-auto rounded-xl brightness-90 group-hover:scale-105 transition-all duration-300  border border-gold shadow-md" id="percorsi"/>
+			</a>
+		</div>
+	</section>
+	<section class="min-h-[100vh] w-full bg-main">
+		<div id="supportami" class="h-[10vh] absolute top-0 left-0"></div>
+		<div class="flex flex-col md:flex-row h-[100vh] items-stretch">
+			<div class="relative self-stretch w-full flex flex-col justify-center items-center md:w-1/2 px-12 md:px-16 text-center md:border-r border-b pb-[10vh] md:pb-0 md:border-b-0 border-gold">
+				<div class=" h-full w-full top-0 left-0 z-0 absolute opacity-40 bg-dark-pattern bg-cover bg-center ">
+				</div>
+				<p class="font-extralight text-not-activate text-sm md:text-md lg:text-xl z-10 bg-main p-8 rounded-lg border border-gold backdrop-blur bg-opacity-30">
+					Supporta il mio operato e le mie iniziative con un’offerta libera.<br/>
+					Ogni contributo percepito, piccolo o grande che sia, è estremamente prezioso per 
+					me e per le iniziative che promuovo.<br />
+					Se vuoi sostenere il mio operato, aiutarmi a portare avanti progetti
+					importanti e diventare parte attiva del mio lavoro, clicca sui collegamenti sottostanti per effettuare la tua donazione.
+				</p>
+			</div>
+		</div>
 	</section>
 </Layout>
+<style>
+	section {
+		color: white;
+		font-size: 20px;
+		line-height: 1.6;
+	}
+	.astro-a {
+		position: absolute;
+		top: -32px;
+		left: 50%;
+		transform: translatex(-50%);
+		width: 220px;
+		height: auto;
+		z-index: -1;
+	}
+	.text-gradient {
+		background-image: var(--accent-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0%;
+	}
+	.instructions {
+		margin-bottom: 2rem;
+		border: 1px solid rgba(var(--accent-light), 25%);
+		background: linear-gradient(rgba(var(--accent-dark), 66%), rgba(var(--accent-dark), 33%));
+		padding: 1.5rem;
+		border-radius: 8px;
+	}
+	.instructions code {
+		font-size: 0.8em;
+		font-weight: bold;
+		background: rgba(var(--accent-light), 12%);
+		color: rgb(var(--accent-light));
+		border-radius: 4px;
+		padding: 0.3em 0.4em;
+	}
+	.instructions strong {
+		color: rgb(var(--accent-light));
+	}
+</style>
+<!-- <script>
+	import { animate, inView } from "motion"
+	import Typewriter from 'typewriter-effect';
+	
+	var type = new Typewriter('#typewriter', {
+	  cursor: "",
+	  autoStart: true,
+	  loop: true,
+	  delay: 'natural',
+	  pauseFor: 500,
+	});
+	
+	  type.pauseFor(500)
+	  .typeString('Consulenze').pauseFor(10000).deleteChars(10)
+	  .typeString('Trattamenti').pauseFor(10000).deleteChars(12)
+	  .typeString('Percorsi').pauseFor(8000).deleteChars(10).start()
+	
+	  var subType = new Typewriter('#typewriter_sub', {
+		string: ["Tarologica", "Numerologica", "Oracolare"],
+		cursor: "",
+		autoStart: true,
+		loop: true,
+		delay: 'natural',
+		deleteSpeed: 30,
+	  pauseFor: 500,
+	  })
+	  subType.pauseFor(2000)
+	  .typeString('Tarologiche, Oracolari e Numerologiche')
+	  .pauseFor(1500)
+	  .deleteChars(40)
+	  .pauseFor(1500)
+	  .typeString('Reiki, Cristalloterapia, Medicina Olistica e altro...')
+	  .pauseFor(1000)
+	  .deleteChars(60)
+	  .typeString('Workshop, Seminari, Laboratori Didattici...')
+	  .pauseFor(1000)
+	  .deleteChars(16)
+	  .start()
+	
+	  animate(
+		 "#box_logo",
+		 {opacity: [
+		 0, // 0.5
+		 1,
+	  ],},{ duration: 2 }
+	  )
+	
+	  inView("#services_container", ({ target }) => {
+	  animate(
+		 target.querySelectorAll("#consulenze_container"),
+		 { opacity: [0, 1], transform: "none" },
+		 { delay: 0.3, duration: 2, easing: [0.33, 0.66, 0.66, 1] }
+	  );
+	});
+	inView("#services_container", ({ target }) => {
+	  animate(
+		 target.querySelectorAll("#trattamenti_container"),
+		 { opacity: [0, 1], transform: "none" },
+		 { delay: 0.6, duration: 2, easing: [0.33, 0.66, 0.66, 1] }
+	  );
+	});
+	inView("#services_container", ({ target }) => {
+	  animate(
+		 target.querySelectorAll("#percorsi_container"),
+		 { opacity: [0, 1], transform: "none" },
+		 { delay: 0.9, duration: 2, easing: [0.33, 0.66, 0.66, 1] }
+	  );
+	});
+	
+	  animate("#chevron_down", {
+		y:[0,5,-5,0]
+	  },
+	  {
+		duration:2,
+		offset: [0, 0.25, 0.75],
+		repeat: Infinity,
+		});
+	</script> -->

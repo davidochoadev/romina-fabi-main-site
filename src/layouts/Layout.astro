@@ -1,5 +1,18 @@
 ---
 import Header from "../components/header/Header.astro"
+import { Image } from "astro:assets";
+import logo from "../assets/logo.png";
+import fetchNotionData from "../utils/fetchNotionData";
+import type MenuItem from "../interfaces/menuItems";
+import SubMenu from "../components/header/SubMenu.astro";
+import createMenuItems from "../utils/createMenuItems";
+import getDefaultMenuItems from "../utils/getDefaultMenuItems";
+
+const defaultMenuItems : MenuItem[] = getDefaultMenuItems('MAIN');
+
+const menuListEnv = import.meta.env.MENU_LIST_BLOCK;
+const menuList = await fetchNotionData(menuListEnv, 'blocks', true);
+const menuItems : MenuItem[] = createMenuItems(menuList, defaultMenuItems);
 
 interface Props {
 	title: string;
@@ -21,15 +34,38 @@ const { title } = Astro.props;
 		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
 		<title>{title}</title>
 	</head>
-	<body class="relative">
+	<body class="bg-main">
 		<Header />
-		<section class="h-[calc(100vh-100px)]">
-			<slot name="first" />
-		</section>
-		<slot />
+		<main>
+			<slot />
+		</main>
+
 	</body>
 </html>
 <style is:global>
+	  header {
+/*     border-color: rgb(38 38 38 / var(--tw-border-opacity)); */
+    border-bottom-width: 1px;
+
+  }
+
+  nav a {
+	 color: white;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 3px;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    margin: 0;
+  }
 	.playfair {
 		font-family: 'Playfair Display', serif;
 	}
@@ -38,6 +74,61 @@ const { title } = Astro.props;
 	}
 
 	.button {
-		@apply mb-4 uppercase text-xs tracking-widest py-4 px-12 bg-black text-white rounded-md transition-all duration-300 hover:bg-white hover:text-black border border-black
+		@apply mb-4 uppercase text-xs tracking-widest py-4 px-12 bg-main/70 backdrop-blur text-white rounded-md transition-all duration-300 hover:bg-white hover:text-main border border-gold 
 	}
+
+	.spacing {
+    letter-spacing:3px;
+    text-transform: uppercase;
+  }
+
+	.screen-reader {
+    width: var(--screenReaderWidth, 1px) !important;
+    height: var(--screenReaderHeight, 1px) !important;
+    padding: var(--screenReaderPadding, 0) !important;
+    border: var(--screenReaderBorder, none) !important;
+
+    position: var(--screenReaderPosition, absolute) !important;
+    clip: var(--screenReaderClip, rect(1px, 1px, 1px, 1px)) !important;
+    overflow: var(--screenReaderOverflow, hidden) !important;
+  }
 </style>
+<script>
+	import { animate, inView } from "motion"
+	
+	  window.addEventListener('scroll', function() {
+	  var element = document.getElementById('header_menu');
+	  if (window.scrollY >= 50) {
+		 element?.classList.remove('opacity-0');
+		 element?.classList.add('opacity-100');
+	  } else {
+		 element?.classList.remove('opacity-100');
+		 element?.classList.add('opacity-0');
+	  }
+	});
+	
+	function closeMenu() {
+	  // Usa Motion One per animare l'elemento fuori dalla vista
+	  animate('#menu-mobile', {
+		 opacity: [1,0],
+		 x: '50%'
+	  }, {
+		 duration: 0.5
+		 // Una volta completata l'animazione, nascondi l'elemento con display: none
+	  });
+	}
+	
+	function openMenu() {
+	  // Usa Motion One per animare l'elemento fuori dalla vista
+	  animate('#menu-mobile', {
+		 opacity: [0,1],
+		 x: '-100%'
+	  }, {
+		 duration: 0.5
+		 // Una volta completata l'animazione, nascondi l'elemento con display: none
+	  });
+	}
+	
+	document.getElementById('close-menu-mobile')!.addEventListener('click', closeMenu);
+	document.getElementById('open-menu-mobile')!.addEventListener('click', openMenu);
+	</script>

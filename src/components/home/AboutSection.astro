@@ -25,25 +25,25 @@ const section = {
   descrizioneLogo: marked.parse(results[5]) || ''
 };
 ---
-<section class="px-4 py-6 min-h-screen max-w-screen flex flex-col items-center justify-center bg-white lg:p-[100px]">
+<section class="px-4 py-6 min-h-screen max-w-screen flex flex-col items-center justify-center bg-white lg:p-[100px] border-t border-gold">
    <div class="flex flex-col gap-2 items-center justify-end w-full py-6">
-      <h4 class="sottotitolo">{section.sottotitoloDellaPagina}</h4>
+      <h4 class="sottotitolo spacing">{section.sottotitoloDellaPagina}</h4>
       <h3 class="text-5xl playfair text-center">{section.titoloDellaPagina}</h3> 
    </div>
    <div class="grid lg:grid-cols-2 grid-cols-1 w-full h-min place-items-center gap-6">
       <div class="flex flex-col items-center justify-center max-w-[600px]">
          <Image src={logo} alt="logo" class="max-w-[300px] p-6"/>
          <h5 class="playfair text-3xl">{section.titoloBiografia}</h5> 
-         <div class="px-8 text-center py-6 text-slate-500" set:html={section.descrizioneBiografia}></div>
-         <a href="/" class="button">
+         <div class="px-8 text-center py-6 text-zinc" set:html={section.descrizioneBiografia}></div>
+         <a href="/" class="button spacing">
             scopri di più
          </a>
       </div>
       <div class="flex flex-col items-center justify-center max-w-[600px]">
          <Image src={logo} alt="logo" class="max-w-[300px] p-6"/>
          <h5 class="playfair text-3xl">{section.titoloLogo}</h5>
-         <div class="px-8 text-center py-6 text-slate-500" set:html={section.descrizioneLogo}></div>
-         <a href="/" class="button">
+         <div class="px-8 text-center py-6 text-zinc" set:html={section.descrizioneLogo}></div>
+         <a href="/" class="button spacing">
             scopri di più
          </a>
       </div>

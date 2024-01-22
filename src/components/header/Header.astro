@@ -1,19 +1,135 @@
 ---
-import Logo from "./Logo.astro";
-import Hamburger from "./Logo.astro";
-import Navigation from "./Navigation.astro";
-import ThemeIcon from "./ThemeIcon.astro";
-import SocialContainer from "./SocialContainer.astro"
+import { Image } from "astro:assets";
+import logo from "../../assets/logo.png";
+import fetchNotionData from "../../utils/fetchNotionData";
+import type MenuItem from "../../interfaces/menuItems";
+import SubMenu from "./SubMenu.astro";
+import createMenuItems from "../../utils/createMenuItems";
+import getDefaultMenuItems from "../../utils/getDefaultMenuItems";
+import MobileSubMenu from "./MobileSubMenu.astro";
+
+const defaultMenuItems : MenuItem[] = getDefaultMenuItems('MAIN');
+
+const menuListEnv = import.meta.env.MENU_LIST_BLOCK;
+const menuList = await fetchNotionData(menuListEnv, 'blocks', true);
+const menuItems : MenuItem[] = createMenuItems(menuList, defaultMenuItems);
 
 ---
-
-<header class="w-full sticky top-0 left-0 z-20 h-[100px] items-center justify-center flex flex-row place-content-around">
-   <div class="backdrop-blur-sm bg-gradient-to-b from-black/50 via-black/40 to-transparent w-full h-full absolute top-0 z-0"/>
-   <div class="lg:w-1/5 z-20 flex flex-row items-center justify-center mx-4">
-      <a href="/" class=" p-2 bg-white rounded-full mx-4 hover:scale-110 transition-all duration-300">
-         <Logo />
-      </a>
+<header
+id="header_menu"
+  class="h-[10vh] bg-main/50 backdrop-blur flex flex-colum space-x-4 w-full items-center px-2 lg:px-10 py-3 md:py-4 border-b border-gold shadow-md bg-main sticky top-0 left-0 z-20 opacity-0 "
+>
+  <a
+    href="/#home"
+    rel="home"
+    class={`flex flex-row justify-center items-center gap-2 transition group duration-300 ${
+      Astro.url.pathname.toString() === "/"
+        ? "text-activate"
+        : "text-not-activate hover:text-activate"
+    }`}
+  >
+    <Image
+      src={logo}
+      alt="Green&Fresh Logo"
+      quality={"max"}
+      width={50}
+      height={50}
+      loading="eager"
+      decoding="async"
+      class={`w-[50px] h-[50px] p-1 rounded-full transition duration-300 ${
+        Astro.url.pathname.toString() === "/"
+          ? "bg-white"
+          : "bg-[#d4d4d4] group-hover:bg-white"
+      }`}
+    />
+  </a>
+  <div class="hidden grow md:flex flex-row items-center justify-end gap-4">
+    <nav class="flex flex-row gap-4">
+      {
+         menuItems.map((item : MenuItem) => (
+           <li class="group relative gap-1 list-none w-full">
+             <a href={item.link} class={
+                Astro.url.pathname.toString() === item.link
+                  ? "text-activate menu-item"
+                  : " text-not-activate hover:text-activate transition duration-300 menu-item"
+              }>
+               <p class="spacing">{item.denominazione}</p>
+               {item.hasChildren && (
+               <svg class="w-3 h-3 group-hover:rotate-90 transition-all duration-300 fill-white"
+               xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                 <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+               </svg>
+               )}
+             </a>
+             {item.hasChildren && (
+               <SubMenu blockIdSubMenu={item.blockIdSubMenu} menuName={item.denominazione} />
+             )}
+           </li>
+         ))
+       }
+    </nav>
+  </div>
+  <div class="flex md:hidden items-center justify-end flex-row grow ">
+    <button
+      class="menu__toggle r-button"
+      type="button"
+      aria-controls="main-menu"
+      id="open-menu-mobile"
+    >
+      <span class="menu__hamburger m-hamburger">
+        <span class="m-hamburger__label">
+          <span class="menu__toggle-hint screen-reader">Open menu</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            fill="white"
+            class="bi bi-list"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+            ></path>
+          </svg>
+        </span>
+      </span>
+    </button>
+  </div>
+   </header>
+   <div class="bg-main/80 backdrop-blur w-full h-full fixed z-30 top-0 -right-full bg-black/50 flex flex-col" id="menu-mobile">
+    <button class="w-full flex flex-row-reverse p-4" id="close-menu-mobile">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-x-lg" viewBox="0 0 16 16">
+       <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+      </svg>
+    </button>
+    <nav class="flex flex-col gap-4">
+      {
+         menuItems.map((item : MenuItem) => (
+           <li class="group relative gap-1 list-none w-full">
+             <a href={item.link} class={
+                Astro.url.pathname.toString() === item.link
+                  ? "text-activate menu-item"
+                  : " text-not-activate hover:text-activate transition duration-300 menu-item"
+              }>
+               <p class="spacing">{item.denominazione}</p>
+               {item.hasChildren && (
+               <svg class="w-3 h-3 group-hover:rotate-90 transition-all duration-300 fill-white"
+               xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                 <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+               </svg>
+               )}
+             </a>
+             {item.hasChildren && (
+               <MobileSubMenu blockIdSubMenu={item.blockIdSubMenu} menuName={item.denominazione} />
+             )}
+           </li>
+         ))
+       }
+    </nav>
    </div>
-   <Navigation />
-   <SocialContainer />
-</header>
+   <style>
+      .menu-item{
+         @apply flex flex-row items-center justify-center p-2
+      }
+   </style>
