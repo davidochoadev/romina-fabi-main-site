@@ -44,12 +44,8 @@ const menuItems : MenuItem[] = createMenuItems(menuList, defaultMenuItems);
 <script>
 document.querySelectorAll('.submenu-toggle').forEach(toggle => {
     toggle.addEventListener('click', function(event) {
-      console.log(event);
-        // Trova il sottomenu all'interno dello stesso elemento li
         const li = event.target!.closest('li');
-        console.log(li);
         const submenu = li.querySelector('.MobileSecondSubMenu');
-        console.log(submenu);
         if (submenu) {
             submenu.classList.toggle('hidden');
         }
