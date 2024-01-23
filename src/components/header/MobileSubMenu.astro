@@ -14,7 +14,7 @@ const menuList = await fetchNotionData(blockIdSubMenu, 'blocks', true);
 const menuItems : MenuItem[] = createMenuItems(menuList, defaultMenuItems);
 
 ---
-<ul class="hidden top-9 group-hover:flex hover:flex bg-white shadow-md rounded-md flex-col py-2" id="submenu">
+<ul class="flex top-9 bg-white shadow-md rounded-md flex-col py-2" id="submenu">
    {
       menuItems.map((item: MenuItem) => (
          <li class=" relative gap-1 list-none w-full px-4 py-2">

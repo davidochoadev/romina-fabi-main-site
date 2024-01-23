@@ -1,0 +1,31 @@
+---
+import fetchNotionData from "../../utils/fetchNotionData"
+import type MenuItem from "../../interfaces/menuItems";
+import type {Block, BlockResponse} from "../../interfaces/tableRow";
+import { Image } from "astro:assets";
+import logo from "../../assets/logo.png";
+import { marked } from "marked";
+
+const serviceSectionEnv = import.meta.env.SERVICE_SECTION_ENV;
+const data = await fetchNotionData(serviceSectionEnv, "blocks", true);
+
+const titoliServizi = data.results.map((list:Block) => list.table_row.cells![0][0].plain_text);
+const descrizioneServizi = data.results.map((list:Block) => list.table_row.cells![1][0].plain_text);
+const buttonTxt = data.results.map((list:Block) => list.table_row.cells![2][0].plain_text);
+const buttonLink = data.results.map((list:Block) => list.table_row.cells![3][0].plain_text);
+const isAvailable = data.results.map((list:Block) => list.table_row.cells![4][0].plain_text);
+
+const servizi = titoliServizi.map((servizio : string, index : number) => ({
+       denominazione: servizio,
+       descrizioneServizio: descrizioneServizi[index] || '',
+       isAvailable: isAvailable[index],
+       buttonLink: buttonLink[index],
+       buttonTxt: buttonTxt[index],
+   }));
+
+console.log(servizi);
+
+---
+<section class="px-4 py-6 min-h-screen max-w-screen flex flex-col items-center justify-center bg-white lg:p-[100px] border-t border-gold">
+
+</section>

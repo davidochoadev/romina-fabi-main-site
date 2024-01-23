@@ -30,7 +30,7 @@ id="header_menu"
   >
     <Image
       src={logo}
-      alt="Green&Fresh Logo"
+      alt="Logo"
       quality={"max"}
       width={50}
       height={50}
@@ -43,11 +43,12 @@ id="header_menu"
       }`}
     />
   </a>
-  <div class="hidden grow md:flex flex-row items-center justify-end gap-4">
+  <div class="hidden grow lg:flex flex-row items-center justify-end gap-4">
     <nav class="flex flex-row gap-4">
+      <ul>
       {
          menuItems.map((item : MenuItem) => (
-           <li class="group relative gap-1 list-none w-full">
+           <li class=" relative gap-1 list-none w-full">
              <a href={item.link} class={
                 Astro.url.pathname.toString() === item.link
                   ? "text-activate menu-item"
@@ -55,9 +56,10 @@ id="header_menu"
               }>
                <p class="spacing">{item.denominazione}</p>
                {item.hasChildren && (
-               <svg class="w-3 h-3 group-hover:rotate-90 transition-all duration-300 fill-white"
+               <svg class="w-3 h-3 group-hover:rotate-90 transition-all duration-300 fill-white" role="img" aria-label="Submenu indicator"
                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                 <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+               <title>Sottocategorie di ${item.denominazione}</title>  
+               <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
                </svg>
                )}
              </a>
@@ -67,14 +69,16 @@ id="header_menu"
            </li>
          ))
        }
+       </ul>
     </nav>
   </div>
-  <div class="flex md:hidden items-center justify-end flex-row grow ">
+  <div class="flex lg:hidden items-center justify-end flex-row grow ">
     <button
       class="menu__toggle r-button"
       type="button"
       aria-controls="main-menu"
       id="open-menu-mobile"
+      role="button"
     >
       <span class="menu__hamburger m-hamburger">
         <span class="m-hamburger__label">
@@ -86,7 +90,10 @@ id="header_menu"
             fill="white"
             class="bi bi-list"
             viewBox="0 0 16 16"
+            role="img"
+            aria-label="Menu icon"
           >
+          <title>Menu</title>
             <path
               fill-rule="evenodd"
               d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
@@ -97,13 +104,15 @@ id="header_menu"
     </button>
   </div>
    </header>
-   <div class="bg-main/80 backdrop-blur w-full h-full fixed z-30 top-0 -right-full bg-black/50 flex flex-col overflow-scroll" id="menu-mobile">
-    <button class="w-full flex flex-row-reverse p-4" id="close-menu-mobile">
-      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-x-lg" viewBox="0 0 16 16">
+   <div class="px-14 bg-main/80 backdrop-blur w-full h-full fixed z-30 top-0 -right-full bg-black/50 flex flex-col overflow-scroll" id="menu-mobile">
+    <button class="w-full flex flex-row-reverse p-4" id="close-menu-mobile" aria-label="Chiudi il menu">
+      <svg role="img" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-x-lg" viewBox="0 0 16 16">
+        <title>Chiudi</title>
        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
       </svg>
     </button>
-    <nav class="flex flex-col gap-4">
+    <nav class="flex flex-col gap-4 pb-10">
+      <ul>
       {
          menuItems.map((item : MenuItem) => (
            <li class="group relative gap-1 list-none w-full">
@@ -116,9 +125,10 @@ id="header_menu"
                 <p class="spacing text-left text-white">{item.denominazione}</p>
               </a>
                  {item.hasChildren && (
-                  <button class="border-l border-white p-4 group/sub first-submenu-toggle">
-                    <svg class="w-3 h-3 group-hover:rotate-90 transition-all duration-300 fill-white"
+                  <button class="border-l border-white p-4 group/sub first-submenu-toggle" aria-label={`Guarda le sottocategorie di ${item.denominazione}`}>
+                    <svg class="w-3 h-3 group-hover:rotate-90 transition-all duration-300 fill-white" role="img" aria-label="Submenu indicator"
                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                      <title>Sottocateogire di ${item.denominazione}</title>
                       <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
                     </svg>
                   </button>
@@ -132,6 +142,7 @@ id="header_menu"
            </li>
          ))
        }
+      </ul>
     </nav>
    </div>
    <style>
