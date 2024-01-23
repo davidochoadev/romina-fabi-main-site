@@ -32,16 +32,20 @@ const section = {
    </div>
    <div class="grid lg:grid-cols-2 grid-cols-1 w-full h-min place-items-center gap-6">
       <div class="flex flex-col items-center justify-center max-w-[600px]">
-         <Image src={logo} alt="logo" class="max-w-[300px] p-6"/>
-         <h5 class="playfair text-3xl">{section.titoloBiografia}</h5> 
+         <div class="max-w-[300px] p-6 rounded-full">
+            <Image src={logo} alt="logo"/>
+         </div>
+         <h4 class="playfair text-3xl">{section.titoloBiografia}</h4> 
          <div class="px-8 text-center py-6 text-zinc" set:html={section.descrizioneBiografia}></div>
          <a href="/" class="button spacing">
             scopri di più
          </a>
       </div>
       <div class="flex flex-col items-center justify-center max-w-[600px]">
-         <Image src={logo} alt="logo" class="max-w-[300px] p-6"/>
-         <h5 class="playfair text-3xl">{section.titoloLogo}</h5>
+         <div class="max-w-[300px] p-6 rounded-full">
+            <Image src={logo} alt="logo"/>
+         </div>
+         <h4 class="playfair text-3xl">{section.titoloLogo}</h4>
          <div class="px-8 text-center py-6 text-zinc" set:html={section.descrizioneLogo}></div>
          <a href="/" class="button spacing">
             scopri di più

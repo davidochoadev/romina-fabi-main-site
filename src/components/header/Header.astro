@@ -31,12 +31,7 @@ id="header_menu"
     <Image
       src={logo}
       alt="Logo"
-      quality={"max"}
-      width={50}
-      height={50}
-      loading="eager"
-      decoding="async"
-      class={`w-[50px] h-[50px] p-1 rounded-full transition duration-300 ${
+      class={`w-max-[50px] h-max-[50px] p-1 rounded-full transition duration-300 ${
         Astro.url.pathname.toString() === "/"
           ? "bg-white"
           : "bg-[#d4d4d4] group-hover:bg-white"
