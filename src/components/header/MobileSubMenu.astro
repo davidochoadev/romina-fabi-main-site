@@ -44,8 +44,9 @@ const menuItems : MenuItem[] = createMenuItems(menuList, defaultMenuItems);
 <script>
 document.querySelectorAll('.submenu-toggle').forEach(toggle => {
     toggle.addEventListener('click', function(event) {
-        const li = event.target!.closest('li');
-        const submenu = li.querySelector('.MobileSecondSubMenu');
+      const target = event.target as HTMLElement;
+        const li = target!.closest('li');
+        const submenu = li!.querySelector('.MobileSecondSubMenu');
         if (submenu) {
             submenu.classList.toggle('hidden');
         }

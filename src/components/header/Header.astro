@@ -142,9 +142,9 @@ id="header_menu"
    <script>
     document.querySelectorAll('.first-submenu-toggle').forEach(toggle => {
     toggle.addEventListener('click', function(event) {
-        // Trova il sottomenu all'interno dello stesso elemento li
-        const li = event.target!.closest('li');
-        const submenu = li.querySelector('.MobileSubMenu');
+        const target = event.target as HTMLElement;
+        const li = target!.closest('li');
+        const submenu = li!.querySelector('.MobileSubMenu');
         if (submenu) {
             submenu.classList.toggle('hidden');
         }
