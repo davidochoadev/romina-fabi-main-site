@@ -22,7 +22,7 @@ id="header_menu"
   <a
     href="/#home"
     rel="home"
-    class={`flex flex-row justify-center items-center gap-2 transition group duration-300 ${
+    class={`w-max-[50px] h-max-[50px] p-1 flex flex-row justify-center items-center gap-2 transition group duration-300 ${
       Astro.url.pathname.toString() === "/"
         ? "text-activate"
         : "text-not-activate hover:text-activate"
@@ -31,11 +31,6 @@ id="header_menu"
     <Image
       src={logo}
       alt="Logo"
-      class={`w-max-[50px] h-max-[50px] p-1 rounded-full transition duration-300 ${
-        Astro.url.pathname.toString() === "/"
-          ? "bg-white"
-          : "bg-[#d4d4d4] group-hover:bg-white"
-      }`}
     />
   </a>
   <div class="hidden grow lg:flex flex-row items-center justify-end gap-4">
