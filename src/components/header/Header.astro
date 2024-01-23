@@ -19,10 +19,11 @@ const menuItems : MenuItem[] = createMenuItems(menuList, defaultMenuItems);
 id="header_menu"
   class="h-[10vh] bg-main/50 backdrop-blur flex flex-colum space-x-4 w-full items-center px-2 lg:px-10 py-3 md:py-4 border-b border-gold shadow-md bg-main sticky top-0 left-0 z-20 opacity-0 "
 >
-  <a
+  <div class="w-[50px] h-[50px]">
+    <a
     href="/#home"
     rel="home"
-    class={`w-max-[50px] h-max-[50px] p-1 flex flex-row justify-center items-center gap-2 transition group duration-300 ${
+    class={`bg-white p-1 rounded-full flex flex-row justify-center items-center gap-2 transition group duration-300 ${
       Astro.url.pathname.toString() === "/"
         ? "text-activate"
         : "text-not-activate hover:text-activate"
@@ -33,6 +34,7 @@ id="header_menu"
       alt="Logo"
     />
   </a>
+  </div>
   <div class="hidden grow lg:flex flex-row items-center justify-end gap-4">
     <nav>
       <ul class="flex flex-row gap-4">
