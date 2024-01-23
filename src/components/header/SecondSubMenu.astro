@@ -16,7 +16,7 @@ const menuItems : MenuItem[] = createMenuItems(menuList, defaultMenuItems);
    {
       menuItems.map((item: MenuItem) => (
          <li>
-            <a href={item.link} class="text-main p-4 hover:bg-main hover:text-white rounded-md lg:w-[200px] flex flex-row transition-all duration-300">
+            <a href={item.link} class="text-main p-4 hover:bg-main hover:text-white rounded-md lg:w-[200px] flex flex-row transition-all">
                <p class="text-xs tracking-widest grow">{item.denominazione}</p>
                {item.hasChildren && (
                   <svg class="w-3 h-3"
