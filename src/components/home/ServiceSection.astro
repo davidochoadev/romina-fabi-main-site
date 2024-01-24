@@ -6,6 +6,18 @@ import { Image } from "astro:assets";
 import logo from "../../assets/logo.png";
 import { marked } from "marked";
 
+import consulenze from "../../assets/consulenze.webp";
+import trattamenti from "../../assets/trattamenti.webp";
+import percorsi from "../../assets/percorsi.webp";
+
+interface Servizio {
+   denominazione: string,
+   descrizioneServizio: string,
+   isAvailable: string,
+   buttonLink: string,
+   buttonTxt: string,
+}
+
 const serviceSectionEnv = import.meta.env.SERVICE_SECTION_ENV;
 const data = await fetchNotionData(serviceSectionEnv, "blocks", true);
 
@@ -23,9 +35,35 @@ const servizi = titoliServizi.map((servizio : string, index : number) => ({
        buttonTxt: buttonTxt[index],
    }));
 
-console.log(servizi);
-
 ---
-<section class="px-4 py-6 min-h-screen max-w-screen flex flex-col items-center justify-center bg-white lg:p-[100px] border-t border-gold">
-
+<section class="px-4 py-6 min-h-screen max-w-screen flex flex-col items-center justify-center bg-white lg:p-[100px] border border-t-gold">
+   <div class="flex flex-col gap-2 items-center justify-end w-full py-6">
+      <h4 class="sottotitolo spacing">SERVIZI</h4>
+      <h3 class="text-5xl playfair text-center">Prodotti Disponibili</h3> 
+   </div>
+   <div class="flex flex-col gap-12 py-6">
+   {
+      servizi.map((servizio : Servizio) => (
+         <div class="shadow-lg rounded-3xl bg-white flex flex-row max-w-[1070px] max-h-[470px] drop-shadow-md border border-gold">
+            <div class="max-w-[380px]">
+               <Image src={servizio.denominazione === 'Consulenze' ? consulenze : 
+                           servizio.denominazione === 'Trattamenti' ? trattamenti : percorsi} 
+                     class="rounded-3xl shadow-lg scale-105 drop-shadow-md border border-gold"
+                     alt={`Rappresentazione ${servizio.denominazione}`} />
+            </div>
+            <div class="grid grid-rows-3 items-center justify-center content-center place-content-center">
+               <h4 class="text-center playfair text-5xl place-self-end justify-self-center">{servizio.denominazione}</h4>
+               <div class="text-center text-zinc px-12 ">
+                  {servizio.descrizioneServizio}
+               </div>
+               <div class="w-full h-full flex justify-center items-start">
+                  {servizio.isAvailable ? (
+                     <a href={servizio.buttonLink} class="button">{servizio.buttonTxt}</a>
+                  ) : (<button>Non disponibile</button>)}
+               </div>
+            </div>
+         </div>
+      ))
+   }
+   </div>
 </section>
