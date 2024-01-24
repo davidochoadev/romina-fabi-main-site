@@ -40,7 +40,7 @@ id="header_menu"
       <ul class="flex flex-row gap-4">
       {
          menuItems.map((item : MenuItem) => (
-           <li class=" relative gap-1 list-none w-full">
+           <li class="group relative gap-1 list-none w-full">
              <a href={item.link} class={
                 Astro.url.pathname.toString() === item.link
                   ? "text-activate menu-item"
