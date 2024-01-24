@@ -10,7 +10,8 @@ export default {
 			'border-color': '#262626',
 			'form-not-activate': '#c4c4c4',
 			'gold':'#d5b33d',
-			'zinc':'rgb(113 113 122)'
+			'zinc':'rgb(113 113 122)',
+			'red': '#cd3750'
 		},
 		extend: {
 			backgroundImage: {

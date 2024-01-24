@@ -30,13 +30,13 @@ const isAvailable = data.results.map((list:Block) => list.table_row.cells![4][0]
 const servizi = titoliServizi.map((servizio : string, index : number) => ({
        denominazione: servizio,
        descrizioneServizio: descrizioneServizi[index] || '',
-       isAvailable: isAvailable[index],
+       isAvailable: isAvailable[index] === 'True',
        buttonLink: buttonLink[index],
        buttonTxt: buttonTxt[index],
    }));
-
+console.log(servizi)
 ---
-<section class="px-4 py-6 min-h-screen max-w-screen flex flex-col items-center justify-center bg-white lg:p-[100px] border border-t-gold">
+<section aria-label="Servizi offerti" class="px-4 py-6 min-h-screen max-w-screen flex flex-col items-center justify-center bg-white lg:p-[100px] border border-t-gold">
    <div class="flex flex-col gap-2 items-center justify-end w-full py-6">
       <h4 class="sottotitolo spacing">SERVIZI</h4>
       <h3 class="text-5xl playfair text-center">Prodotti Disponibili</h3> 
@@ -44,7 +44,7 @@ const servizi = titoliServizi.map((servizio : string, index : number) => ({
    <div class="flex flex-col gap-12 py-6">
    {
       servizi.map((servizio : Servizio) => (
-         <div class="shadow-lg rounded-3xl bg-white grid grid-rows-2 md:flex md:flex-row max-w-[1070px] max-h-[700px] md:max-h-[470px] drop-shadow-md border border-gold">
+         <article class="shadow-lg rounded-3xl bg-white grid grid-rows-2 md:flex md:flex-row max-w-[1070px] max-h-[700px] md:max-h-[470px] drop-shadow-md border border-gold">
             <div class=" max-w-[300px] md:max-w-[380px] flex flex-col items-center justify-center justify-self-center">
                <Image src={servizio.denominazione === 'Consulenze' ? consulenze : 
                            servizio.denominazione === 'Trattamenti' ? trattamenti : percorsi} 
@@ -60,10 +60,10 @@ const servizi = titoliServizi.map((servizio : string, index : number) => ({
                <div class="w-full h-full flex justify-center items-center md:items-start">
                   {servizio.isAvailable ? (
                      <a href={servizio.buttonLink} class="button">{servizio.buttonTxt}</a>
-                  ) : (<button>Non disponibile</button>)}
+                  ) : (<button class="button-not-available">Non disponibili</button>)}
                </div>
             </div>
-         </div>
+         </article>
       ))
    }
    </div>
