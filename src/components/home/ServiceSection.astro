@@ -44,19 +44,20 @@ const servizi = titoliServizi.map((servizio : string, index : number) => ({
    <div class="flex flex-col gap-12 py-6">
    {
       servizi.map((servizio : Servizio) => (
-         <div class="shadow-lg rounded-3xl bg-white flex flex-row max-w-[1070px] max-h-[470px] drop-shadow-md border border-gold">
-            <div class="max-w-[380px]">
+         <div class="shadow-lg rounded-3xl bg-white grid grid-rows-2 md:flex md:flex-row max-w-[1070px] max-h-[700px] md:max-h-[470px] drop-shadow-md border border-gold">
+            <div class=" max-w-[300px] md:max-w-[380px] flex flex-col items-center justify-center justify-self-center">
                <Image src={servizio.denominazione === 'Consulenze' ? consulenze : 
                            servizio.denominazione === 'Trattamenti' ? trattamenti : percorsi} 
                      class="rounded-3xl shadow-lg scale-105 drop-shadow-md border border-gold"
                      alt={`Rappresentazione ${servizio.denominazione}`} />
             </div>
             <div class="grid grid-rows-3 items-center justify-center content-center place-content-center">
-               <h4 class="text-center playfair text-5xl place-self-end justify-self-center">{servizio.denominazione}</h4>
-               <div class="text-center text-zinc px-12 ">
-                  {servizio.descrizioneServizio}
+               <div class="w-full h-full flex flex-col items-center justify-center md:justify-end">
+                  <h4 class="text-center playfair text-4xl md:text-5xl">{servizio.denominazione}</h4>
                </div>
-               <div class="w-full h-full flex justify-center items-start">
+               <div class="text-center text-zinc px-4 md:px-12 py-6 md:py-4 text-sm md:text-base border-gold border-t border-b md:border-0" set:html={servizio.descrizioneServizio}>
+               </div>
+               <div class="w-full h-full flex justify-center items-center md:items-start">
                   {servizio.isAvailable ? (
                      <a href={servizio.buttonLink} class="button">{servizio.buttonTxt}</a>
                   ) : (<button>Non disponibile</button>)}
