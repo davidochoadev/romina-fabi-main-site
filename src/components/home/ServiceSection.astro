@@ -49,7 +49,7 @@ console.log(servizi)
       servizi.map((servizio : Servizio) => (
          <article class="shadow-lg rounded-3xl bg-white grid grid-rows-2 md:flex md:flex-row max-w-[1070px] max-h-[700px] md:max-h-[470px] drop-shadow-md border border-gold">
             <div class=" max-w-[300px] md:max-w-[400px] lg:max-h-[800px] flex flex-col items-center justify-center justify-self-center card_image" >
-               <img src={servizio.denominazione === 'Consulenze' ? 'https://res.cloudinary.com/dk6qm2dhs/image/upload/f_auto,q_70/v1/homepage/mreklf24albfwwi0qjkn' : 
+               <img width={800} height={950} src={servizio.denominazione === 'Consulenze' ? 'https://res.cloudinary.com/dk6qm2dhs/image/upload/f_auto,q_70/v1/homepage/mreklf24albfwwi0qjkn' : 
                            servizio.denominazione === 'Trattamenti' ? 'https://res.cloudinary.com/dk6qm2dhs/image/upload/f_auto,q_70/v1/homepage/pttl7dfhoeftlbg1hcdv' : "https://res.cloudinary.com/dk6qm2dhs/image/upload/f_auto,q_70/v1/homepage/yo19b083ioenghgiigts"}
                      alt={`Rappresentazione ${servizio.denominazione}`} />
             </div>
