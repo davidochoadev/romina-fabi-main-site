@@ -1,16 +1,19 @@
 ---
 interface Props {
-	title: string
-   subtitle: string
-   ariaLabel: string
+	title: string;
+   subtitle: string;
+   ariaLabel: string;
+   bgIce: boolean;
 }
 
-const { title, subtitle, ariaLabel } = Astro.props;
+const { title, subtitle, ariaLabel, bgIce } = Astro.props;
 ---
-<section aria-label={ariaLabel} class="px-4 py-6 min-h-screen max-w-screen flex flex-col items-center justify-center bg-white lg:p-[100px] border border-t-gold">
+<section aria-label={ariaLabel} class={`px-4 py-6 min-h-screen max-w-screen flex flex-col items-center justify-center lg:py-[100px] border border-gold lg:px-[200px]
+${bgIce === true ? 'bg-ice-pattern' : 'bg-white'}
+`}>
    <div class="flex flex-col gap-2 items-center justify-end w-full py-6">
-      <h4 class="sottotitolo spacing">{subtitle}</h4>
-      <h3 class="text-5xl playfair text-center">{title}</h3> 
+      <h4 class="sottotitolo spacing text-main/60">{subtitle}</h4>
+      <h3 class="text-4xl md:text-5xl playfair text-center text-main/80">{title}</h3> 
    </div>
    <div class="flex flex-col gap-12 py-6">
       <slot />

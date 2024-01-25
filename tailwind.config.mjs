@@ -16,6 +16,7 @@ export default {
 		extend: {
 			backgroundImage: {
 				'hero-pattern': "url('/src/assets/studio.webp')",
+				'ice-pattern' : "url('https://res.cloudinary.com/dk6qm2dhs/image/upload/f_auto,q_auto/v1/homepage/f6pasnln6s35s7bd8mru')",
 			 },
 			 inset: {
 				'center-socials': 'calc(50% - 81px)',

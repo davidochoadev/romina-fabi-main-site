@@ -1,34 +1,32 @@
 ---
 import type {Block} from '../../interfaces/tableRow';
 import fetchNotionData from '../../utils/fetchNotionData';
-import { Image } from 'astro:assets';
-import myImage from "../../assets/studio.webp"
 import Social from '../header/Social.astro';
 
 const defaultTitoli : String[] = ["Consulente Olistica", "Operatrice Bioenergetica", "Ricercatrice Spirituale"];
-const firstSection = import.meta.env.MAIN_TITLE_BLOCK
+/* const firstSection = import.meta.env.MAIN_TITLE_BLOCK */
 const titoliDiStudio = import.meta.env.TABLE_TITLES_BLOCK
-const hiddenTitle = import.meta.env.HIDDEN_TITLE_BLOCK
+/* const hiddenTitle = import.meta.env.HIDDEN_TITLE_BLOCK */
 
-const response = await fetchNotionData(firstSection,'blocks', false);
+/* const response = await fetchNotionData(firstSection,'blocks', false); */
 const responseTitoli = await fetchNotionData(titoliDiStudio,'blocks', true);
-const responseHidden = await fetchNotionData(hiddenTitle,'blocks', false);
+/* const responseHidden = await fetchNotionData(hiddenTitle,'blocks', false); */
 
-const denominazione = response.heading_1.rich_text[0].text.content || "Romina Fabi";
+/* const denominazione = response.heading_1.rich_text[0].text.content || "Romina Fabi"; */
 const titoli : String[] = responseTitoli.results.map((row : Block) => {
 	return row.table_row.cells![1][0].plain_text
 }) || defaultTitoli;
 
 const titoliConcatenati = titoli.join(", ");
 
-const hidden = responseHidden.heading_3.rich_text[0].text.content || "Studio Olistico di Romina Fabi"
+const hidden = /* responseHidden.heading_3.rich_text[0].text.content || */ "Studio Olistico di Romina Fabi"
 ---
 <section class="absolute top-0 left-0 w-full h-[100vh] md:h-[100vh] flex flex-col items-center justify-center" id="home">
    <div class=" bg-hero-pattern w-full h-full absolute top-0 left-0 bg-auto bg-bottom z-0 brightness-50" />
    <Social />
    <div class="flex flex-col justify-center items-center z-10 grow">
       <h1 class="sr-only">{hidden}</h1>
-      <h2 class="text-5xl py-2 text-white">Romina Fabi</h2>
+      <h2 class="text-5xl py-2 text-white playfair">Romina Fabi</h2>
       <astro-titles id="typewriter" data-titoli={titoli} aria-hidden="true" class="text-md lg:text-lg uppercase tracking-widest py-4 text-white spacing" />
       <h3 class="sr-only">{titoliConcatenati}</h3>
    </div>

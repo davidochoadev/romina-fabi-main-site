@@ -1,18 +1,11 @@
 ---
 import Header from "../components/header/Header.astro"
-import { Image } from "astro:assets";
-import logo from "../assets/logo.png";
-import fetchNotionData from "../utils/fetchNotionData";
-import type MenuItem from "../interfaces/menuItems";
-import SubMenu from "../components/header/SubMenu.astro";
-import createMenuItems from "../utils/createMenuItems";
-import getDefaultMenuItems from "../utils/getDefaultMenuItems";
 
-const defaultMenuItems : MenuItem[] = getDefaultMenuItems('MAIN');
+/* const defaultMenuItems : MenuItem[] = getDefaultMenuItems('MAIN');
 
 const menuListEnv = import.meta.env.MENU_LIST_BLOCK;
 const menuList = await fetchNotionData(menuListEnv, 'blocks', true);
-const menuItems : MenuItem[] = createMenuItems(menuList, defaultMenuItems);
+const menuItems : MenuItem[] = createMenuItems(menuList, defaultMenuItems); */
 
 interface Props {
 	title: string;
@@ -70,11 +63,11 @@ const { title } = Astro.props;
 	}
 
 	.button {
-		@apply spacing my-4 uppercase text-xs tracking-widest py-4 px-12 bg-main/70 backdrop-blur text-white rounded-md transition-all duration-300 hover:bg-white hover:text-main border border-gold 
+		@apply text-center spacing my-4 uppercase text-xs tracking-widest py-4 px-6 md:px-12 bg-main/70 backdrop-blur text-white rounded-md transition-all duration-300 hover:bg-white hover:text-main border border-gold 
 	}
 
 	.button-not-available {
-		@apply spacing my-4 uppercase text-xs tracking-widest py-4 px-12 bg-main/70 backdrop-blur text-white rounded-md transition-all duration-300 hover:bg-red/70 border border-gold 
+		@apply spacing my-4 uppercase text-xs tracking-widest py-4 px-6 md:px-12 bg-main/70 backdrop-blur text-white rounded-md transition-all duration-300 hover:bg-red/70 border border-gold 
 	}
 
 	.spacing {
