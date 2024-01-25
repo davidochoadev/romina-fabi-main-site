@@ -51,7 +51,9 @@ console.log(servizi)
             <div class=" max-w-[300px] md:max-w-[400px] lg:max-h-[800px] flex flex-col items-center justify-center justify-self-center card_image" >
                <img width={800} height={950} src={servizio.denominazione === 'Consulenze' ? 'https://res.cloudinary.com/dk6qm2dhs/image/upload/f_auto,q_70/v1/homepage/mreklf24albfwwi0qjkn' : 
                            servizio.denominazione === 'Trattamenti' ? 'https://res.cloudinary.com/dk6qm2dhs/image/upload/f_auto,q_70/v1/homepage/pttl7dfhoeftlbg1hcdv' : "https://res.cloudinary.com/dk6qm2dhs/image/upload/f_auto,q_70/v1/homepage/yo19b083ioenghgiigts"}
-                     alt={`Rappresentazione ${servizio.denominazione}`} />
+                     alt={`Rappresentazione ${servizio.denominazione}`} 
+                     loading="lazy" decoding="async"
+               />
             </div>
             <div class="grid grid-rows-3 items-center justify-center content-center place-content-center">
                <div class="w-full h-full flex flex-col items-center justify-center md:justify-end">
