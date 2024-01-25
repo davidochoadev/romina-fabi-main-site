@@ -5,6 +5,7 @@ import type {Block, BlockResponse} from "../../interfaces/tableRow";
 import { Image } from "astro:assets";
 import logo from "../../assets/logo.png";
 import { marked } from "marked";
+import Section from "./components/Section.astro";
 
 const aboutSectionEnv = import.meta.env.ABOUT_SECTION_BLOCK;
 const data = await fetchNotionData(aboutSectionEnv, "blocks", true);
@@ -25,11 +26,7 @@ const section = {
   descrizioneLogo: marked.parse(results[5]) || ''
 };
 ---
-<section class="px-4 py-6 min-h-screen max-w-screen flex flex-col items-center justify-center bg-white lg:p-[100px] border-t border-gold">
-   <div class="flex flex-col gap-2 items-center justify-end w-full py-6">
-      <h4 class="sottotitolo spacing">{section.sottotitoloDellaPagina}</h4>
-      <h3 class="text-5xl playfair text-center">{section.titoloDellaPagina}</h3> 
-   </div>
+<Section ariaLabel="Scopri chi sono e il mio progetto" title="Biografia & Logo" subtitle="Identità">
    <div class="grid lg:grid-cols-2 grid-cols-1 w-full h-min place-items-center gap-6">
       <div class="flex flex-col items-center justify-center max-w-[600px]">
          <div class="max-w-[300px] p-6 rounded-full">
@@ -52,4 +49,4 @@ const section = {
          </a>
       </div>
    </div>
-</section>
+</Section>
