@@ -1,0 +1,111 @@
+---
+import Section from "./components/Section.astro"
+import fetchNotionData from "../../utils/fetchNotionData"
+import getLastElements from "../../utils/notionDb"
+import {listFilesInDirectory} from "../../utils/listFiles"
+import fs from 'fs';
+import type { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import { Image } from "astro:assets";
+import { v2 as cloudinary } from 'cloudinary';
+import type { UploadStream } from 'cloudinary/types/index'
+
+
+interface PageObjectWithFilePath extends PageObjectResponse {
+  filePath: string[];
+}
+
+cloudinary.config({ 
+  cloud_name: import.meta.env.CLOUDINARY_CLOUD_NAME, 
+  api_key: import.meta.env.CLOUDINARY_API_KEY, 
+  api_secret: import.meta.env.CLOUDINARY_API_SECRET,
+});
+
+const downloadFile = async (url: string): Promise<string | null> => {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
+    }
+    const buffer = await response.arrayBuffer();
+
+    return new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream({
+        resource_type: 'image'
+      }, (error, result) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        resolve(result!.url);  // URL dell'immagine su Cloudinary
+      });
+
+      uploadStream.end(Buffer.from(buffer));
+    });
+
+  } catch (error) {
+    console.error('Error during file download:', error);
+    return null;
+  }
+};
+
+const dbKey = import.meta.env.BLOG_DATABASE_KEY;
+const data = await getLastElements();
+const array = data.results as PageObjectWithFilePath[]
+
+const jsonFilePath = './src/assets/blog/immagini.json';
+const jsonFileContent = fs.readFileSync(jsonFilePath, 'utf8');
+const fileNamesInJson = JSON.parse(jsonFileContent) as { name: string, url: string }[];
+
+for (const item of array) {
+  const copertina = item.properties.Copertina;
+  item.filePath = [];
+
+  if (copertina && copertina.type === 'files') {
+    const files = copertina.files;
+    if (files) {
+      for (const file of files) {
+        if (file.type === 'file') {
+          const fileName = file.name;
+          const fileUrl = file.file.url;
+
+          // Cerca il file per nome
+          const fileEntry = fileNamesInJson.find(f => f.name === fileName);
+
+          if (!fileEntry) {
+            console.log(`Downloading file: ${fileName}`);
+            await downloadFile(fileUrl).then(url => {
+              console.log('URL del file caricato:', url);
+              if (url !== null) {
+                  // Scomponi l'URL originale in parti
+                  const urlParts = url.split('/upload/');
+
+                  // Aggiungi i parametri dopo 'upload'
+                  const modifiedUrl : string = urlParts[0] + '/upload/w_350/q_auto/f_auto/' + urlParts[1];
+                  fileNamesInJson.push({ name: fileName, url: modifiedUrl });
+                  fs.writeFileSync(jsonFilePath, JSON.stringify(fileNamesInJson, null, 2));
+                  item.filePath.push(modifiedUrl);
+              }
+            });
+          } else {
+            // Aggiungi l'URL esistente a item.filePath
+            item.filePath.push(fileEntry.url);
+          }
+        }
+      }
+    }
+  }
+}
+
+---
+<Section title="Articoli Recenti" subtitle="blog" bgIce={false} ariaLabel="Ultimi Articoli del mio Blog">
+   <div class="flex flex-col gap-12">
+      {
+         array.map((blog : any) => (
+            <div>{blog.properties.Name.title[0].text.content}
+               <img src={`${blog.filePath}`} alt="Cover blog post" />
+               <p>{blog.filePath}</p>
+               </div>
+         ))
+      }
+      </div>
+   </Section>
