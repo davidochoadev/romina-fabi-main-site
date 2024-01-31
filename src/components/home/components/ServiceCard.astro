@@ -11,15 +11,16 @@ interface Props {
 
 const { servizio } = Astro.props;
 ---
-<article class="flex gap-4 bg-white md:flex-row md:border md:border-gold items-center justify-center lg:max-w-[1200px] rounded-3xl px-4 md:px-0">
-   <div class="card_image flex items-center justify-center relative" >
-      <img width={400} height={450} src={servizio.denominazione === 'Consulenze' ? 'https://res.cloudinary.com/dk6qm2dhs/image/upload/w_400/f_auto/q_auto/v1/homepage/mreklf24albfwwi0qjkn' : 
-                  servizio.denominazione === 'Trattamenti' ? 'https://res.cloudinary.com/dk6qm2dhs/image/upload/w_400/f_auto/q_auto/v1/homepage/pttl7dfhoeftlbg1hcdv' : "https://res.cloudinary.com/dk6qm2dhs/image/upload/w_400/f_auto/q_auto/v1/homepage/yo19b083ioenghgiigts"}
-            alt={`Rappresentazione ${servizio.denominazione}`} 
-            loading="lazy" decoding="async"
-            class="bg-cover bg-center"
-      />
-      <div class="bg-white/70 backdrop-blur rounded-3xl flex flex-col absolute mx-4 my-auto py-2 md:hidden">
+<article class="card lg:card-side shadow-md drop-shadow-md border border-gold bg-white">
+   <figure>
+         <img width={400} height={450} src={servizio.denominazione === 'Consulenze' ? 'https://res.cloudinary.com/dk6qm2dhs/image/upload/w_400/f_auto/q_auto/v1/homepage/mreklf24albfwwi0qjkn' : 
+                     servizio.denominazione === 'Trattamenti' ? 'https://res.cloudinary.com/dk6qm2dhs/image/upload/w_400/f_auto/q_auto/v1/homepage/pttl7dfhoeftlbg1hcdv' : "https://res.cloudinary.com/dk6qm2dhs/image/upload/w_400/f_auto/q_auto/v1/homepage/yo19b083ioenghgiigts"}
+               alt={`Rappresentazione ${servizio.denominazione}`} 
+               loading="lazy" decoding="async"
+               class="w-full h-full object-cover"
+         />
+      </figure>
+      <div class="card-body lg:w-1/2">
          <h4 class="text-center text-3xl md:text-4xl playfair px-4 py-2 text-main/80">{servizio.denominazione}</h4>
          <div set:html={servizio.descrizioneServizio} class="text-center text-main/80 px-4 md:px-12 py-2 md:py-4 text-sm md:text-base"></div>
          <div class="w-full h-full flex justify-center items-center md:items-start px-4">
@@ -28,26 +29,4 @@ const { servizio } = Astro.props;
             ) : (<button class="button-not-available spacing">Non disponibili</button>)}
          </div>
       </div>
-   </div>
-   <div class="hidden bg-white/70 backdrop-blur rounded-3xl md:flex flex-col items-center justify-center h-full">
-      <h4 class="text-center text-3xl md:text-4xl playfair px-4 py-2 text-main/80">{servizio.denominazione}</h4>
-      <div set:html={servizio.descrizioneServizio} class="text-center text-main/80 px-4 md:px-12 lg:px-20 py-2 md:py-4 text-sm md:text-base lg:text-lg"></div>
-      <div class="w-full h-full flex justify-center items-center md:items-start px-4">
-         {servizio.isAvailable ? (
-            <a href={servizio.buttonLink} class="button spacing">{servizio.buttonTxt}</a>
-         ) : (<button class="button-not-available spacing">Non disponibili</button>)}
-      </div>
-   </div>
 </article>
-<style>
-   .card_image > img{
-      border-radius: 1.5rem;
-      border: solid 1px #d5b33d;
-      transform: scale(1.05);
-   }
-   @media screen and (max-width: 768px) {
-      .card_image > img {
-         transform: scale(1.00);
-      }
-   }
-</style>
