@@ -13,10 +13,11 @@ const { servizio } = Astro.props;
 ---
 <article class="flex gap-4 bg-white md:flex-row md:border md:border-gold items-center justify-center lg:max-w-[1200px] rounded-3xl px-4 md:px-0">
    <div class="card_image flex items-center justify-center relative" >
-      <img src={servizio.denominazione === 'Consulenze' ? 'https://res.cloudinary.com/dk6qm2dhs/image/upload/f_auto/q_auto/v1/homepage/mreklf24albfwwi0qjkn' : 
-                  servizio.denominazione === 'Trattamenti' ? 'https://res.cloudinary.com/dk6qm2dhs/image/upload/f_auto/q_auto/v1/homepage/pttl7dfhoeftlbg1hcdv' : "https://res.cloudinary.com/dk6qm2dhs/image/upload/f_auto/q_auto/v1/homepage/yo19b083ioenghgiigts"}
+      <img width={400} height={450} src={servizio.denominazione === 'Consulenze' ? 'https://res.cloudinary.com/dk6qm2dhs/image/upload/w_400/f_auto/q_auto/v1/homepage/mreklf24albfwwi0qjkn' : 
+                  servizio.denominazione === 'Trattamenti' ? 'https://res.cloudinary.com/dk6qm2dhs/image/upload/w_400/f_auto/q_auto/v1/homepage/pttl7dfhoeftlbg1hcdv' : "https://res.cloudinary.com/dk6qm2dhs/image/upload/w_400/f_auto/q_auto/v1/homepage/yo19b083ioenghgiigts"}
             alt={`Rappresentazione ${servizio.denominazione}`} 
             loading="lazy" decoding="async"
+            class="bg-cover bg-center"
       />
       <div class="bg-white/70 backdrop-blur rounded-3xl flex flex-col absolute mx-4 my-auto py-2 md:hidden">
          <h4 class="text-center text-3xl md:text-4xl playfair px-4 py-2 text-main/80">{servizio.denominazione}</h4>
