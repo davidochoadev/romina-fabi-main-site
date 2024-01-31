@@ -28,7 +28,7 @@ const { title } = Astro.props;
 		<title>{title}</title>
 		<SpeedInsights/>
 	</head>
-	<body class="bg-main">
+	<body>
 		<Header />
 		<main>
 			<slot />
@@ -36,11 +36,6 @@ const { title } = Astro.props;
 	</body>
 </html>
 <style is:global>
-	  header {
-/*     border-color: rgb(38 38 38 / var(--tw-border-opacity)); */
-    border-bottom-width: 1px;
-
-  }
 
   nav a {
 	 color: white;

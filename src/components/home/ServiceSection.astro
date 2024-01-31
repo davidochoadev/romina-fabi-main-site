@@ -30,7 +30,7 @@ const servizi = titoliServizi.map((servizio : string, index : number) => ({
        buttonTxt: buttonTxt[index],
    }));
 ---
-<Section bgIce={true} ariaLabel="Servizi Offerti" title="Prodotti Disponibili" subtitle="SERVIZI" >
+<Section bgIce={false} ariaLabel="Servizi Offerti" title="Prodotti Disponibili" subtitle="SERVIZI" >
    <div class="flex flex-col gap-12">
    {
       servizi.map((servizio : Servizio) => (
