@@ -103,7 +103,7 @@ console.log(array[0].properties)
          array.map((blog : any) => (
             <div class="card lg:card-side bg-base-100 shadow-md drop-shadow-md border border-gold">
                <figure>
-                  <img src={blog.filePath} alt={`Cover Post ${blog.properties.Name.title[0].text.content}`} class="w-full h-full object-cover "/>
+                  <img src={blog.filePath} alt={`Cover Post ${blog.properties.Name.title[0].text.content}`} class="w-full h-full object-cover " loading="lazy"/>
                </figure>
                <div class="card-body lg:w-1/2">
                   <h2 class="card-title">{blog.properties.Name.title[0].text.content}</h2>
