@@ -13,8 +13,8 @@ const { servizio } = Astro.props;
 ---
 <article class="flex gap-4 bg-white md:flex-row md:border md:border-gold items-center justify-center lg:max-w-[1200px] rounded-3xl px-4 md:px-0">
    <div class="card_image flex items-center justify-center relative" >
-      <img width={800} height={950} src={servizio.denominazione === 'Consulenze' ? 'https://res.cloudinary.com/dk6qm2dhs/image/upload/f_auto,q_70/v1/homepage/mreklf24albfwwi0qjkn' : 
-                  servizio.denominazione === 'Trattamenti' ? 'https://res.cloudinary.com/dk6qm2dhs/image/upload/f_auto,q_70/v1/homepage/pttl7dfhoeftlbg1hcdv' : "https://res.cloudinary.com/dk6qm2dhs/image/upload/f_auto,q_70/v1/homepage/yo19b083ioenghgiigts"}
+      <img width={800} height={950} src={servizio.denominazione === 'Consulenze' ? 'https://res.cloudinary.com/dk6qm2dhs/image/upload/w_800/f_auto/q_70/v1/homepage/mreklf24albfwwi0qjkn' : 
+                  servizio.denominazione === 'Trattamenti' ? 'https://res.cloudinary.com/dk6qm2dhs/image/upload/w_800/f_auto/q_70/v1/homepage/pttl7dfhoeftlbg1hcdv' : "https://res.cloudinary.com/dk6qm2dhs/image/upload/w_800/f_auto/q_70/v1/homepage/yo19b083ioenghgiigts"}
             alt={`Rappresentazione ${servizio.denominazione}`} 
             loading="lazy" decoding="async"
       />
