@@ -13,7 +13,7 @@ const { servizio } = Astro.props;
 ---
 <article class="card lg:card-side shadow-md drop-shadow-md border border-gold bg-white">
    <figure>
-         <img width={400} height={450} src={servizio.denominazione === 'Consulenze' ? 'https://res.cloudinary.com/dk6qm2dhs/image/upload/w_400/f_auto/q_auto/v1/homepage/mreklf24albfwwi0qjkn' : 
+         <img src={servizio.denominazione === 'Consulenze' ? 'https://res.cloudinary.com/dk6qm2dhs/image/upload/w_400/f_auto/q_auto/v1/homepage/mreklf24albfwwi0qjkn' : 
                      servizio.denominazione === 'Trattamenti' ? 'https://res.cloudinary.com/dk6qm2dhs/image/upload/w_400/f_auto/q_auto/v1/homepage/pttl7dfhoeftlbg1hcdv' : "https://res.cloudinary.com/dk6qm2dhs/image/upload/w_400/f_auto/q_auto/v1/homepage/yo19b083ioenghgiigts"}
                alt={`Rappresentazione ${servizio.denominazione}`} 
                loading="lazy" decoding="async"
