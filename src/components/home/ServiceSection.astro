@@ -31,7 +31,7 @@ const servizi = titoliServizi.map((servizio : string, index : number) => ({
    }));
 ---
 <Section bgIce={false} ariaLabel="Servizi Offerti" title="Prodotti Disponibili" subtitle="SERVIZI" >
-   <div class="flex flex-col gap-12">
+   <div class="flex flex-col gap-12" id="servizi">
    {
       servizi.map((servizio : Servizio) => (
          <ServiceCard servizio={servizio}/>
